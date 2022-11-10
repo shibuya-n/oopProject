@@ -9,23 +9,15 @@ public class Accounts {
         this.accountType = accountType;
 
     }
-    public static void menu(){
+    public void menu(){
         Scanner scannerObject = new Scanner(System.in);
-        System.out.println("[What kind of account would you like to make?] (CHECKING/SAVINGS/EXIT)");
-        String userAnswer = scannerObject.nextLine().trim().toLowerCase();
+        System.out.println("WELCOME! LETS GET STARTED.");
+        System.out.println("How much money would you like to deposit?");
+        int userAnswer = Integer.parseInt(String.valueOf(scannerObject.nextLine()));
 
         oopProject.exit();
-        if (userAnswer.equals("checking")){
-            System.out.println("Checking");
-        }
 
-        else if (userAnswer.equals("savings")){
-            System.out.println("Savings");
-        }
-        else {
-            System.out.print("[ERROR. PLEASE TRY AGAIN]");
-            menu();
-        }
+
     }
     public static void deposit(){
 
