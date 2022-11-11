@@ -4,6 +4,5 @@ public class checkingAccount extends Accounts{
     }
     public void menu(){
         super.menu();
-        System.out.println("what?");
     }
 }

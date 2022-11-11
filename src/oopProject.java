@@ -35,6 +35,7 @@ public class oopProject {
 
         if (userAnswer.equals("checking")) {
             userAnswer = " ";
+            checkingAccount obj = new checkingAccount(balance, accountType);
             System.out.println("Checking");
         }
 

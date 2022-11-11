@@ -11,15 +11,26 @@ public class Accounts {
     }
     public void menu(){
         Scanner scannerObject = new Scanner(System.in);
-        System.out.println("WELCOME! LETS GET STARTED.");
-        System.out.println("How much money would you like to deposit?");
-        int userAnswer = Integer.parseInt(String.valueOf(scannerObject.nextLine()));
+        System.out.println("WELCOME! LET'S GET STARTED.");
+        System.out.println("What would you like to do? (deposit/exit)");
+        String userAnswer = scannerObject.nextLine().trim().toLowerCase();
 
-        oopProject.exit();
-
-
+        if (userAnswer.equals("deposit")) {
+            deposit();
+        }
+        else if (userAnswer.equals("exit")) {
+            oopProject.ask();
+        }
+        else {
+            System.out.println("[ERROR. PLEASE TRY AGAIN]");
+        }
     }
-    public static void deposit(){
+    public void deposit(){
+        System.out.println("-----DEPOSIT-----");
+        Scanner depositAsk = new Scanner(System.in);
+        System.out.println("How much money would you like to deposit?");
+        int depositAmount = Integer.parseInt(String.valueOf(depositAsk.nextLine()));
+
 
     }
 
