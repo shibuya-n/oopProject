@@ -21,7 +21,6 @@ public class oopProject {
         } else if (menuAnswer == 2) {
             System.out.println("Savings");
         } else if (menuAnswer == 3) {
-            System.out.println("New Account");
             accountCreate();
         } else {
             ask();
@@ -31,12 +30,11 @@ public class oopProject {
     public static void accountCreate() {
         Scanner accountAsk = new Scanner(System.in);
         System.out.println("[What kind of account would you like to make?] (CHECKING/SAVINGS/EXIT)");
-        userAnswer += accountAsk.nextLine().trim().toLowerCase();
+        userAnswer = accountAsk.nextLine().trim().toLowerCase();
 
         if (userAnswer.equals("checking")) {
             userAnswer = " ";
-            checkingAccount obj = new checkingAccount(balance, accountType);
-            System.out.println("Checking");
+            checkingAccount.menu();
         }
 
         else if (userAnswer.equals("savings")){
@@ -48,8 +46,9 @@ public class oopProject {
             ask();
         }
         else {
-            System.out.print("[ERROR. PLEASE TRY AGAIN]");
+            System.out.println("[ERROR. PLEASE TRY AGAIN]");
             userAnswer = " ";
+            accountCreate();
         }
 
         }

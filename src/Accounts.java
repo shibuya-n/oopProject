@@ -1,15 +1,18 @@
-import java.util.Scanner;
-
+import java.util.*;
 public class Accounts {
     public int balance;
     public String accountType;
 
-    public Accounts(int balance, String accountType){
-        this.balance = balance;
-        this.accountType = accountType;
+    public static int minBalance;
 
+    public static ArrayList<Accounts> checkingList = new ArrayList<>();
+    public static ArrayList<Accounts> savingsList = new ArrayList<>();
+
+    public Accounts(int balance){
+        this.balance = balance;
+        this.minBalance = 0;
     }
-    public void menu(){
+    public static void menu(){
         Scanner scannerObject = new Scanner(System.in);
         System.out.println("WELCOME! LET'S GET STARTED.");
         System.out.println("What would you like to do? (deposit/exit)");
@@ -25,7 +28,7 @@ public class Accounts {
             System.out.println("[ERROR. PLEASE TRY AGAIN]");
         }
     }
-    public void deposit(){
+    public static void deposit(){
         System.out.println("-----DEPOSIT-----");
         Scanner depositAsk = new Scanner(System.in);
         System.out.println("How much money would you like to deposit?");
