@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class checkingAccount extends Accounts{
 
@@ -10,34 +12,47 @@ public class checkingAccount extends Accounts{
     public static void menu(){
         Scanner scannerObject = new Scanner(System.in);
         System.out.println("WELCOME! LET'S GET STARTED.");
-        System.out.println("What would you like to do? (deposit/exit)");
+        System.out.println("What would you like to do? (new/back)");
         String userAnswer = scannerObject.nextLine().trim().toLowerCase();
 
         if (userAnswer.equals("deposit")) {
             deposit();
         }
-        else if (userAnswer.equals("exit")) {
+        else if (userAnswer.equals("back")) {
             oopProject.ask();
         }
         else {
             System.out.println("[ERROR. PLEASE TRY AGAIN]");
+            menu();
         }
     }
     public static void deposit(){
-        checkingAccount depositTest = new checkingAccount(minBalance);
+        checkingAccount initObj = new checkingAccount(minBalance);
         System.out.println("-----DEPOSIT-----");
         Scanner depositAsk = new Scanner(System.in);
         System.out.println("How much money would you like to deposit?" + " (minimum: " + minBalance + ")");
-        int depositAmount = Integer.parseInt(String.valueOf(depositAsk.nextLine()));
-        checkingAccount obj = new checkingAccount(depositAmount);
 
+        String depositResponse = depositAsk.nextLine();
+        Pattern sortNum = Pattern.compile("^\\d+$");
+        Matcher matcher = sortNum.matcher(depositResponse);
+        boolean depositFound = matcher.find();
 
-        if (depositAmount < minBalance) {
-            System.out.println("Sorry! You deposited too little money!" + " (minimum: " + minBalance + ")");
+        if (depositFound) {
+            int depositAmount = Integer.parseInt(depositResponse);
+            checkingAccount obj = new checkingAccount(depositAmount);
+
+            if (depositAmount < minBalance) {
+                System.out.println("Sorry! You deposited too little money!" + " (minimum: " + minBalance + ")");
+                deposit();
+            } else {
+                System.out.println(" ");
+                System.out.println("New Checking Account Successfully Created!");
+                checkingList.add(obj);
+                oopProject.ask();
+            }
+        } else {
+            System.out.println("[ERROR. PLEASE TRY AGAIN]");
             deposit();
-        }
-        else {
-            checkingList.add(obj);
         }
 
     }
