@@ -62,6 +62,7 @@ public class checkingAccount extends Accounts{
         if (depositFound) {
             double depositAmount = Double.parseDouble(depositResponse);
             balance += depositAmount;
+            accountName = nameTemp;
 
 
             if (depositAmount < minBalance) {
@@ -72,7 +73,7 @@ public class checkingAccount extends Accounts{
         } else {
             syntaxError();
         }
-        accountName = nameTemp;
+
 
 
     }

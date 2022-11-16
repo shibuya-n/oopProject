@@ -81,23 +81,29 @@ public class oopProject {
         }
 
         for (int i = 0; i < useList.size(); i++) {
-            System.out.println(i +".");
+            int x = i + 1;
+            System.out.println(x + ".");
             System.out.println("Account Name: " + useList.get(i).accountName);
             System.out.println("Balance: " + useList.get(i).balance);
             System.out.println(" ");
         }
 
         Scanner carouselAsk = new Scanner(System.in);
-        System.out.println("Which account would you like to select? (insert number) ");
-        String menuResponse = carouselAsk.nextLine();
+        System.out.println("Which account would you like to select? (TYPE EXIT TO EXIT)");
+        String menuResponse = carouselAsk.nextLine().trim().toLowerCase();
 
-        Pattern sortNum = Pattern.compile("^\\d+$");
-        Matcher matcher = sortNum.matcher(menuResponse);
-        boolean matchFound = matcher.find();
-
-        if (matchFound) {
-            carouselAnswer = Integer.parseInt(menuResponse);
-
+        for (int i = 0; i < useList.size(); i++) {
+            if (menuResponse.equals(useList.get(i).accountName)) {
+                Accounts.depositAsk();
+                useList.get(i).deposit();
+            }
+            else if (menuResponse.equals("exit")) {
+                ask();
+            }
+            else {
+                System.out.println("No matches found. Please try again.");
+                accountCarousel();
+            }
 
         }
 
