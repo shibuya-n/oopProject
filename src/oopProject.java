@@ -22,17 +22,31 @@ public class oopProject {
         if (matchFound) {
             int menuAnswer = Integer.parseInt(menuResponse);
             if (menuAnswer == 1) {
+                if (Accounts.checkingList.size()== 0){
+                    noAccountAsk();
+
+                }
                 System.out.println("Checking");
                 System.out.println("Request Complete!");
                 System.out.println(Accounts.checkingList);
                 System.out.println(" ");
                 ask();
             } else if (menuAnswer == 2) {
+                if (Accounts.checkingList.size()== 0){
+                    noAccountAsk();
+
+                }
+                System.out.println("Checking");
+                System.out.println("Request Complete!");
+                System.out.println(Accounts.checkingList);
+                System.out.println(" ");
+                ask();
                 System.out.println("Savings");
             } else if (menuAnswer == 3) {
                 accountCreate();
             } else if (menuAnswer == 4) {
-                exit();
+                System.out.println("Thank you for banking with BaNK");
+                System.exit(0);
             } else {
                 System.out.println("[ERROR. PLEASE TRY AGAIN]");
                 ask();
@@ -43,9 +57,26 @@ public class oopProject {
             System.out.println("[ERROR. PLEASE TRY AGAIN]");
             ask();
             }
-
-
         }
+    public static void noAccountAsk() {
+        System.out.println("No accounts found. :( ");
+
+        Scanner newAccountAsk = new Scanner(System.in);
+        System.out.println("Make a new account? (yes/no)");
+        String askResponse = newAccountAsk.nextLine().trim().toLowerCase();
+
+        if (askResponse.equals("yes")){
+            checkingAccount.menu();
+        }
+        else if (askResponse.equals("no")){
+            ask();
+        }
+        else{
+            System.out.println("[ERROR. PLEASE TRY AGAIN]");
+        }
+        }
+
+
 
     public static void accountCreate() {
         Scanner accountAsk = new Scanner(System.in);
@@ -75,7 +106,7 @@ public class oopProject {
     public static void exit() {
         if (userAnswer.equals("exit")) {
             userAnswer = " ";
-            System.out.println("Thank you for banking with BaNK");
+            System.out.println("{Thank you for banking with BaNK}");
             System.exit(0);
         }
     }
