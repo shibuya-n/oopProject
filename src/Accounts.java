@@ -9,8 +9,8 @@ public class Accounts {
     public static boolean depositFound = false;
     public static double minBalance;
 
-    public static ArrayList<checkingAccount> checkingList = new ArrayList<>();
-    public static ArrayList<savingsAccount> savingsList = new ArrayList<>();
+    public static ArrayList<Accounts> checkingList = new ArrayList<>();
+    public static ArrayList<Accounts> savingsList = new ArrayList<>();
 
     public Accounts(double balance, String accountName){
         this.balance = balance;

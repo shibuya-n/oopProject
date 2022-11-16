@@ -24,13 +24,16 @@ public class checkingAccount extends Accounts{
         if (userAnswer.equals("new")) {
 
             checkingAccount newAccount = new checkingAccount(0,"");
+            checkingList.add(newAccount);
             depositAsk();
             newAccount.deposit();
-            checkingList.add(newAccount);
 
             System.out.println("New account successfully created!");
             System.out.println("Returning to HoME...");
             System.out.println(" ");
+
+
+
             oopProject.ask();
         }
         else if (userAnswer.equals("back")) {
@@ -59,6 +62,7 @@ public class checkingAccount extends Accounts{
         if (depositFound) {
             double depositAmount = Double.parseDouble(depositResponse);
             balance += depositAmount;
+
 
             if (depositAmount < minBalance) {
                 errorMessage();

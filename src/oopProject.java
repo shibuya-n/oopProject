@@ -3,6 +3,8 @@ import java.util.regex.*;
 public class oopProject {
     public static String userAnswer = " ";
     public static int menuAnswer = 0;
+
+    public static int carouselAnswer = 0;
     public static void main(String[] args){
         System.out.println("[WELCOME TO BaNK]");
         ask();
@@ -25,11 +27,10 @@ public class oopProject {
             menuAnswer = Integer.parseInt(menuResponse);
             if (menuAnswer == 1) {
                 if (Accounts.checkingList.size() > 0){
-                    accountCarousel();
-                    System.out.println("Checking");
+
                     System.out.println("Request Complete!");
-                    System.out.println(Accounts.checkingList);
                     System.out.println(" ");
+                    accountCarousel();
                     ask();
                 }
                 else {
@@ -38,11 +39,11 @@ public class oopProject {
             }
             else if (menuAnswer == 2) {
                 if (Accounts.savingsList.size() > 0){
-                    accountCarousel();
-                    System.out.println("Checking");
+
                     System.out.println("Request Complete!");
-                    System.out.println(Accounts.savingsList);
                     System.out.println(" ");
+                    accountCarousel();
+
                     ask();
                 }
                 else {
@@ -71,14 +72,33 @@ public class oopProject {
     public static void accountCarousel() {
         ArrayList<Accounts> useList;
         if (menuAnswer == 1) {
+
             useList = Accounts.checkingList;
+
         }
         else {
             useList = Accounts.savingsList;
         }
 
-        for (Accounts accounts : useList) {
-            System.out.println(accounts);
+        for (int i = 0; i < useList.size(); i++) {
+            System.out.println(i +".");
+            System.out.println("Account Name: " + useList.get(i).accountName);
+            System.out.println("Balance: " + useList.get(i).balance);
+            System.out.println(" ");
+        }
+
+        Scanner carouselAsk = new Scanner(System.in);
+        System.out.println("Which account would you like to select? (insert number) ");
+        String menuResponse = carouselAsk.nextLine();
+
+        Pattern sortNum = Pattern.compile("^\\d+$");
+        Matcher matcher = sortNum.matcher(menuResponse);
+        boolean matchFound = matcher.find();
+
+        if (matchFound) {
+            carouselAnswer = Integer.parseInt(menuResponse);
+
+
         }
 
     }
