@@ -7,6 +7,8 @@ public class checkingAccount extends Accounts{
     public static String depositResponse = " ";
     public static boolean depositFound = false;
 
+    public static String nameTemp = " ";
+
 
     public checkingAccount(double balance, String accountName){
         super(balance, accountName);
@@ -20,11 +22,14 @@ public class checkingAccount extends Accounts{
         String userAnswer = scannerObject.nextLine().trim().toLowerCase();
 
         if (userAnswer.equals("new")) {
+
             checkingAccount newAccount = new checkingAccount(0,"");
             depositAsk();
             newAccount.deposit();
+            checkingList.add(newAccount);
+
             System.out.println("New account successfully created!");
-            System.out.println("Returning to homepage...");
+            System.out.println("Returning to HoME...");
             System.out.println(" ");
             oopProject.ask();
         }
@@ -45,6 +50,10 @@ public class checkingAccount extends Accounts{
         Pattern sortNum = Pattern.compile("[0-9]{1,13}(\\\\.[0-9]*)?");
         Matcher matcher = sortNum.matcher(depositResponse);
         depositFound = matcher.find();
+
+        Scanner nameAsk = new Scanner(System.in);
+        System.out.println("What would you like to name this account?");
+        nameTemp = nameAsk.nextLine().trim().toLowerCase();
     }
     public void deposit() {
         if (depositFound) {
@@ -59,6 +68,8 @@ public class checkingAccount extends Accounts{
         } else {
             syntaxError();
         }
+        accountName = nameTemp;
+
 
     }
     public void errorMessage() {

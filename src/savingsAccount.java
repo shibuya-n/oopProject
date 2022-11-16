@@ -1,19 +1,19 @@
-//import java.util.Scanner;
-//import java.util.regex.Matcher;
-//import java.util.regex.Pattern;
-//
-//public class savingsAccount extends Accounts{
-//
-//    public static String depositResponse = " ";
-//    public static boolean depositFound = false;
-//
-//    public static savingsAccount initObj = new savingsAccount(minBalance, "");
-//
-//    public savingsAccount(double balance, String accountName){
-//        super(balance, accountName);
-//        minBalance = 20;
-//
-//    }
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class savingsAccount extends Accounts {
+
+    public static String depositResponse = " ";
+    public static boolean depositFound = false;
+
+    public static savingsAccount initObj = new savingsAccount(minBalance, "");
+
+    public savingsAccount(double balance, String accountName){
+        super(balance, accountName);
+        minBalance = 20;
+
+    }
 //    public static void menu(){
 //        Scanner scannerObject = new Scanner(System.in);
 //        System.out.println("WELCOME! LET'S GET STARTED.");
@@ -61,5 +61,5 @@
 //            syntaxError();
 //        }
 //
-//    }
-//}
+    }
+
