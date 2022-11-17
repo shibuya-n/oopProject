@@ -60,7 +60,7 @@ public class Accounts {
     }
     public void deposit() {
         if (depositFound) {
-            depositAmount = Double.parseDouble(depositResponse);
+            balance = Double.parseDouble(depositResponse);
             balance += depositAmount;
 
             if (balance < minBalance) {

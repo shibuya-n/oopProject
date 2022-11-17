@@ -63,8 +63,7 @@ public class checkingAccount extends Accounts{
     }
     public void deposit() {
         if (depositFound) {
-            depositAmount = Double.parseDouble(depositResponse);
-            balance += depositAmount;
+            balance += Double.parseDouble(depositResponse);
 
             if (balance < minBalance) {
                 errorMessage();
@@ -75,6 +74,7 @@ public class checkingAccount extends Accounts{
         } else {
             syntaxError();
         }
+        depositResponse = " ";
     }
     public void setName() {
         accountName = nameTemp;
