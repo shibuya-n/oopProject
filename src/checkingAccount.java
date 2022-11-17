@@ -6,7 +6,7 @@ public class checkingAccount extends Accounts{
 
     public static String depositResponse = " ";
     public static boolean depositFound = false;
-
+    public static double depositAmount = 0;
     public static String nameTemp = " ";
 
 
@@ -27,8 +27,10 @@ public class checkingAccount extends Accounts{
             checkingList.add(newAccount);
             depositAsk();
             newAccount.deposit();
+            getName();
+            newAccount.setName();
 
-            System.out.println("New account successfully created!");
+            System.out.println("Success!!");
             System.out.println("Returning to HoME...");
             System.out.println(" ");
 
@@ -53,32 +55,33 @@ public class checkingAccount extends Accounts{
         Pattern sortNum = Pattern.compile("[0-9]{1,13}(\\\\.[0-9]*)?");
         Matcher matcher = sortNum.matcher(depositResponse);
         depositFound = matcher.find();
-
+    }
+    public static void getName() {
         Scanner nameAsk = new Scanner(System.in);
         System.out.println("What would you like to name this account?");
         nameTemp = nameAsk.nextLine().trim().toLowerCase();
     }
     public void deposit() {
         if (depositFound) {
-            double depositAmount = Double.parseDouble(depositResponse);
+            depositAmount = Double.parseDouble(depositResponse);
             balance += depositAmount;
-            accountName = nameTemp;
 
-
-            if (depositAmount < minBalance) {
+            if (balance < minBalance) {
                 errorMessage();
             } else {
                 successMessage();
             }
+            depositAmount = 0;
         } else {
             syntaxError();
         }
-
-
-
     }
+    public void setName() {
+        accountName = nameTemp;
+        }
     public void errorMessage() {
         System.out.println("Sorry! You deposited too little money!" + " (minimum: " + minBalance + ")");
+        System.out.println(" ");
         depositAsk();
     }
 

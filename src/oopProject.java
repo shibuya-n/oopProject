@@ -89,7 +89,7 @@ public class oopProject {
         }
 
         Scanner carouselAsk = new Scanner(System.in);
-        System.out.println("Which account would you like to select? (TYPE EXIT TO EXIT)");
+        System.out.println("Which account would you like to select? (TYPE exit TO EXIT)");
         String menuResponse = carouselAsk.nextLine().trim().toLowerCase();
 
         for (int i = 0; i < useList.size(); i++) {
