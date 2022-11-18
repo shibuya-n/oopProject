@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="60b7d384-4bac-469a-a733-68d6fa2977cd" name="Changes" comment="update">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Accounts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Accounts.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/checkingAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/checkingAccount.java" afterDir="false" />
-    </list>
+    <list default="true" id="60b7d384-4bac-469a-a733-68d6fa2977cd" name="Changes" comment="update &#10;&#10;deposit bugged" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -85,7 +81,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668624700418</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="update &#10;&#10;deposit bugged">
+      <created>1668721570373</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1668721570373</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -102,6 +105,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="hi" />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="update &#10;&#10;deposit bugged" />
+    <option name="LAST_COMMIT_MESSAGE" value="update &#10;&#10;deposit bugged" />
   </component>
 </project>
