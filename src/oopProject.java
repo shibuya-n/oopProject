@@ -72,7 +72,6 @@ public class oopProject {
     public static void accountCarousel() {
         ArrayList<Accounts> useList;
         if (menuAnswer == 1) {
-
             useList = Accounts.checkingList;
 
         }
@@ -87,15 +86,31 @@ public class oopProject {
             System.out.println("Balance: " + useList.get(i).balance);
             System.out.println(" ");
         }
-
         Scanner carouselAsk = new Scanner(System.in);
         System.out.println("Which account would you like to select? (TYPE exit TO EXIT)");
         String menuResponse = carouselAsk.nextLine().trim().toLowerCase();
 
         for (int i = 0; i < useList.size(); i++) {
             if (menuResponse.equals(useList.get(i).accountName)) {
-                Accounts.depositAsk();
-                useList.get(i).deposit();
+                Scanner actionAsk = new Scanner(System.in);
+                System.out.println("What would you like to do? (DEPOSIT/WITHDRAW | TYPE exit TO EXIT)");
+                String actionResponse = actionAsk.nextLine().trim().toLowerCase();
+                if (actionResponse.equals("deposit")){ //check if this is okay later
+                    Accounts.depositAsk();
+                    useList.get(i).deposit();
+                }
+                else if (actionResponse.equals("withdraw")){
+                    checkingAccount.withdrawAsk();
+                    useList.get(i).withdraw();
+                }
+                else if (actionResponse.equals("exit")){
+                    accountCarousel();
+                }
+                else {
+                    System.out.println("No matches found. Please try again.");
+                    accountCarousel(); //see if this rerouting is okay
+                }
+
             }
             else if (menuResponse.equals("exit")) {
                 ask();

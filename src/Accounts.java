@@ -5,10 +5,16 @@ import java.util.regex.Pattern;
 public class Accounts {
     public double balance;
     public String accountName;
+    //variables for depositing
     public static String depositResponse = " ";
     public static boolean depositFound = false;
-    public static double minBalance;
     public static double depositAmount = 0;
+
+    //variables for withdrawing
+    public static String withdrawResponse = " ";
+    public static boolean withdrawFound = false;
+    public static double minBalance;
+
     public static String nameTemp = " ";
     public static ArrayList<Accounts> checkingList = new ArrayList<>();
     public static ArrayList<Accounts> savingsList = new ArrayList<>();
@@ -50,6 +56,17 @@ public class Accounts {
         Matcher matcher = sortNum.matcher(depositResponse);
         depositFound = matcher.find();
     }
+    public static void withdrawAsk() {
+        System.out.println("-----DEPOSIT-----");
+        Scanner withdrawAsk = new Scanner(System.in);
+        System.out.println("How much money would you like to withdraw?");
+
+        withdrawResponse = withdrawAsk.nextLine();
+        Pattern sortNum = Pattern.compile("[0-9]{1,13}(\\\\.[0-9]*)?");
+        Matcher matcher = sortNum.matcher(withdrawResponse);
+        withdrawFound = matcher.find();
+    }
+
     public static void getName() {
         Scanner nameAsk = new Scanner(System.in);
         System.out.println("What would you like to name this account?");
@@ -68,6 +85,14 @@ public class Accounts {
             } else {
                 successMessage();
             }
+        } else {
+            syntaxError();
+        }
+    }
+    public void withdraw() {
+        if (withdrawFound) {
+            balance -= Double.parseDouble(withdrawResponse);
+            successMessage();
         } else {
             syntaxError();
         }

@@ -4,9 +4,7 @@ import java.util.regex.Pattern;
 
 public class checkingAccount extends Accounts{
 
-    public static String depositResponse = " ";
     public static boolean depositFound = false;
-    public static double depositAmount = 0;
     public static String nameTemp = " ";
 
 
@@ -51,10 +49,20 @@ public class checkingAccount extends Accounts{
         Scanner depositAsk = new Scanner(System.in);
         System.out.println("How much money would you like to deposit?" + " (minimum: " + minBalance + ")");
 
-        depositResponse = depositAsk.nextLine();
+        depositResponse = depositAsk.nextLine().trim();
         Pattern sortNum = Pattern.compile("[0-9]{1,13}(\\\\.[0-9]*)?");
         Matcher matcher = sortNum.matcher(depositResponse);
         depositFound = matcher.find();
+    }
+    public static void withdrawAsk() {
+        System.out.println("-----DEPOSIT-----");
+        Scanner withdrawAsk = new Scanner(System.in);
+        System.out.println("How much money would you like to withdraw?");
+
+        withdrawResponse = withdrawAsk.nextLine().trim();
+        Pattern sortNum = Pattern.compile("[0-9]{1,13}(\\\\.[0-9]*)?");
+        Matcher matcher = sortNum.matcher(withdrawResponse);
+        withdrawFound = matcher.find();
     }
     public static void getName() {
         Scanner nameAsk = new Scanner(System.in);
@@ -63,22 +71,31 @@ public class checkingAccount extends Accounts{
     }
     public void deposit() {
         if (depositFound) {
-            balance += Double.parseDouble(depositResponse);
 
-            if (balance < minBalance) {
-                errorMessage();
-            } else {
+            if (Double.parseDouble(depositResponse) >= minBalance || balance > minBalance) {
+                balance += Double.parseDouble(depositResponse);
                 successMessage();
+            } else {
+                errorMessage();
+
             }
-            depositAmount = 0;
         } else {
             syntaxError();
         }
-        depositResponse = " ";
     }
     public void setName() {
-        accountName = nameTemp;
+        if (checkingList.size() > 0) {
+            for (int i = 0; i < checkingList.size(); i++) {
+                if (nameTemp.equals(checkingList.get(i).accountName)) {
+                    getName();
+                    System.out.println("Sorry! You have already used this name!");
+                }
+            }
         }
+        else {
+            accountName = nameTemp;
+        }
+    }
     public void errorMessage() {
         System.out.println("Sorry! You deposited too little money!" + " (minimum: " + minBalance + ")");
         System.out.println(" ");
