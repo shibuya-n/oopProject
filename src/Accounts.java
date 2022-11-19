@@ -15,7 +15,6 @@ public class Accounts {
     public static boolean withdrawFound = false;
     public static double minBalance;
 
-    public static String nameTemp = " ";
     public static ArrayList<Accounts> checkingList = new ArrayList<>();
     public static ArrayList<Accounts> savingsList = new ArrayList<>();
 
@@ -32,9 +31,7 @@ public class Accounts {
 
         if (userAnswer.equals("new")) {
             checkingAccount newAccount = new checkingAccount(0,"");
-            depositAsk();
             newAccount.deposit();
-            getName();
             newAccount.setName();
 
         }
@@ -46,36 +43,42 @@ public class Accounts {
             menu();
         }
     }
-    public static void depositAsk() {
+    public void setName() {
+        Scanner nameAsk = new Scanner(System.in);
+        System.out.println("What would you like to name this account?");
+        String nameTemp = nameAsk.nextLine().trim().toLowerCase();
+
+        if (checkingList.size() > 0) {
+            for (int i = 0; i < checkingList.size(); i++) {
+                if (nameTemp.equals(checkingList.get(i).accountName)) {
+                    System.out.println("Sorry! You have already used this name!");
+                    setName();
+                }
+                else {
+                    accountName = nameTemp;
+                    successMessage();
+                    oopProject.ask();
+                }
+            }
+        }
+        else {
+            System.out.println("5: " + nameTemp);
+            accountName = nameTemp;
+            successMessage();
+            oopProject.ask();
+        }
+    }
+
+    public void deposit() {
         System.out.println("-----DEPOSIT-----");
         Scanner depositAsk = new Scanner(System.in);
-        System.out.println("How much money would you like to deposit?" + " (minimum initial deposit: " + minBalance + ")");
+        System.out.println("How much money would you like to deposit?" + " (minimum: " + minBalance + ")");
 
-        depositResponse = depositAsk.nextLine();
+        depositResponse = depositAsk.nextLine().trim();
         Pattern sortNum = Pattern.compile("[0-9]{1,13}(\\\\.[0-9]*)?");
         Matcher matcher = sortNum.matcher(depositResponse);
         depositFound = matcher.find();
-    }
-    public static void withdrawAsk() {
-        System.out.println("-----DEPOSIT-----");
-        Scanner withdrawAsk = new Scanner(System.in);
-        System.out.println("How much money would you like to withdraw?");
 
-        withdrawResponse = withdrawAsk.nextLine();
-        Pattern sortNum = Pattern.compile("[0-9]{1,13}(\\\\.[0-9]*)?");
-        Matcher matcher = sortNum.matcher(withdrawResponse);
-        withdrawFound = matcher.find();
-    }
-
-    public static void getName() {
-        Scanner nameAsk = new Scanner(System.in);
-        System.out.println("What would you like to name this account?");
-        nameTemp = nameAsk.nextLine().trim().toLowerCase();
-    }
-    public void setName() {
-        accountName = nameTemp;
-    }
-    public void deposit() {
         if (depositFound) {
             balance = Double.parseDouble(depositResponse);
             balance += depositAmount;
@@ -90,7 +93,16 @@ public class Accounts {
         }
     }
     public void withdraw() {
-        if (withdrawFound) {
+        System.out.println("-----DEPOSIT-----");
+        Scanner withdrawAsk = new Scanner(System.in);
+        System.out.println("How much money would you like to withdraw?");
+
+        withdrawResponse = withdrawAsk.nextLine().trim();
+        Pattern sortNum = Pattern.compile("[0-9]{1,13}(\\\\.[0-9]*)?");
+        Matcher matcher = sortNum.matcher(withdrawResponse);
+        withdrawFound = matcher.find();
+
+        if (withdrawFound && (balance >= Double.parseDouble(withdrawResponse))) {
             balance -= Double.parseDouble(withdrawResponse);
             successMessage();
         } else {
@@ -99,15 +111,16 @@ public class Accounts {
     }
     public void syntaxError(){
         System.out.println("[ERROR. PLEASE TRY AGAIN]");
-        depositAsk();
+        deposit();
     }
     public void errorMessage() {
         System.out.println("Sorry! You deposited too little money!" + " (minimum: " + minBalance + ")");
-        depositAsk();
+        deposit();
     }
     public void successMessage() {
         System.out.println(" ");
         System.out.println("Success!!");
+        System.out.println(" ");
 
 
 

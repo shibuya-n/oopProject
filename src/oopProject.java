@@ -96,12 +96,12 @@ public class oopProject {
                 System.out.println("What would you like to do? (DEPOSIT/WITHDRAW | TYPE exit TO EXIT)");
                 String actionResponse = actionAsk.nextLine().trim().toLowerCase();
                 if (actionResponse.equals("deposit")){ //check if this is okay later
-                    Accounts.depositAsk();
                     useList.get(i).deposit();
+                    accountCarousel();
                 }
                 else if (actionResponse.equals("withdraw")){
-                    checkingAccount.withdrawAsk();
                     useList.get(i).withdraw();
+                    accountCarousel();
                 }
                 else if (actionResponse.equals("exit")){
                     accountCarousel();
