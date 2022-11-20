@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 public class Accounts {
     public double balance;
     public String accountName;
+    public String accountType;
     //variables for depositing
     public static String depositResponse = " ";
     public static boolean depositFound = false;
@@ -13,15 +14,18 @@ public class Accounts {
     //variables for withdrawing
     public static String withdrawResponse = " ";
     public static boolean withdrawFound = false;
-    public static double minBalance;
 
     public static ArrayList<Accounts> checkingList = new ArrayList<>();
     public static ArrayList<Accounts> savingsList = new ArrayList<>();
 
-    public Accounts(double balance, String accountName){
+    public static ArrayList<Accounts> nameList = new ArrayList<>();
+
+    public static double minBalance;
+
+    public Accounts(double balance, String accountName, String accountType){
         this.balance = balance;
         this.accountName = accountName;
-        this.minBalance = 0;
+        this.accountType = accountType;
     }
     public static void menu(){
         Scanner scannerObject = new Scanner(System.in);
@@ -30,7 +34,7 @@ public class Accounts {
         String userAnswer = scannerObject.nextLine().trim().toLowerCase();
 
         if (userAnswer.equals("new")) {
-            checkingAccount newAccount = new checkingAccount(0,"");
+            checkingAccount newAccount = new checkingAccount(0,"","");
             newAccount.deposit();
             newAccount.setName();
 
@@ -48,21 +52,18 @@ public class Accounts {
         System.out.println("What would you like to name this account?");
         String nameTemp = nameAsk.nextLine().trim().toLowerCase();
 
-        if (checkingList.size() > 0) {
-            for (int i = 0; i < checkingList.size(); i++) {
-                if (nameTemp.equals(checkingList.get(i).accountName)) {
-                    System.out.println("Sorry! You have already used this name!");
+        if (nameList.size() > 0) {
+            for (int i = 0; i < nameList.size(); i++) {
+                if (nameTemp.equals(nameList.get(i).accountName)) {
+                    System.out.println("Account name already used. Please try again.");
                     setName();
                 }
-                else {
-                    accountName = nameTemp;
-                    successMessage();
-                    oopProject.ask();
-                }
             }
+            accountName = nameTemp;
+            successMessage();
+            oopProject.ask();
         }
         else {
-            System.out.println("5: " + nameTemp);
             accountName = nameTemp;
             successMessage();
             oopProject.ask();
@@ -75,7 +76,7 @@ public class Accounts {
         System.out.println("How much money would you like to deposit?" + " (minimum: " + minBalance + ")");
 
         depositResponse = depositAsk.nextLine().trim();
-        Pattern sortNum = Pattern.compile("[0-9]{1,13}(\\\\.[0-9]*)?");
+        Pattern sortNum = Pattern.compile("^[0-9]*$");
         Matcher matcher = sortNum.matcher(depositResponse);
         depositFound = matcher.find();
 
@@ -90,28 +91,29 @@ public class Accounts {
             }
         } else {
             syntaxError();
+            deposit();
         }
     }
     public void withdraw() {
-        System.out.println("-----DEPOSIT-----");
+        System.out.println("-----WITHDRAW-----");
         Scanner withdrawAsk = new Scanner(System.in);
         System.out.println("How much money would you like to withdraw?");
 
         withdrawResponse = withdrawAsk.nextLine().trim();
-        Pattern sortNum = Pattern.compile("[0-9]{1,13}(\\\\.[0-9]*)?");
+        Pattern sortNum = Pattern.compile("^[0-9]*$");
         Matcher matcher = sortNum.matcher(withdrawResponse);
         withdrawFound = matcher.find();
 
-        if (withdrawFound && (balance >= Double.parseDouble(withdrawResponse))) {
+        if (withdrawFound && (minBalance <= (balance - Double.parseDouble(withdrawResponse)))) {
             balance -= Double.parseDouble(withdrawResponse);
             successMessage();
         } else {
-            syntaxError();
+            System.out.println("Your balance is too low to withdraw this amount of money. Please first deposit more money.");
+            oopProject.accountCarousel();
         }
     }
     public void syntaxError(){
         System.out.println("[ERROR. PLEASE TRY AGAIN]");
-        deposit();
     }
     public void errorMessage() {
         System.out.println("Sorry! You deposited too little money!" + " (minimum: " + minBalance + ")");
@@ -125,8 +127,6 @@ public class Accounts {
 
 
     }
-
-
-
-
+    public void interest() {
+    }
 }

@@ -4,7 +4,6 @@ public class oopProject {
     public static String userAnswer = " ";
     public static int menuAnswer = 0;
 
-    public static int carouselAnswer = 0;
     public static void main(String[] args){
         System.out.println("[WELCOME TO BaNK]");
         ask();
@@ -15,11 +14,12 @@ public class oopProject {
         System.out.println("[What would you like to do today?]");
         System.out.println("1. Enter Checking Account(s)");
         System.out.println("2. Enter Savings Account(s)");
-        System.out.println("3. Make a new account");
-        System.out.println("4. Exit");
+        System.out.println("3. Simulate interest (Savings Accounts ONLY)");
+        System.out.println("4. Make a new account");
+        System.out.println("5. Exit");
         String menuResponse = menuAsk.nextLine();
 
-        Pattern sortNum = Pattern.compile("^\\d+$");
+        Pattern sortNum = Pattern.compile("^[0-9]*$");
         Matcher matcher = sortNum.matcher(menuResponse);
         boolean matchFound = matcher.find();
 
@@ -43,24 +43,30 @@ public class oopProject {
                     System.out.println("Request Complete!");
                     System.out.println(" ");
                     accountCarousel();
-
                     ask();
                 }
                 else {
-                    noCheckingAsk();
+                    noSavingsAsk();
                 }
             }
-            else if (menuAnswer == 3) {
-                accountCreate();
+            else if (menuAnswer == 3){
+                if (Accounts.savingsList.size() > 0) {
+                    savingsAccount.interestCarousel();
+                }
+                else {
+                    noSavingsAsk();
+                }
             }
             else if (menuAnswer == 4) {
+                accountCreate();
+            }
+            else if (menuAnswer == 5) {
                 System.out.println("Thank you for banking with BaNK");
                 System.exit(0);
             }
             else {
                 System.out.println("[ERROR. PLEASE TRY AGAIN]");
                 ask();
-
             }
         }
         else {
@@ -83,6 +89,7 @@ public class oopProject {
             int x = i + 1;
             System.out.println(x + ".");
             System.out.println("Account Name: " + useList.get(i).accountName);
+            System.out.println("Account Type: " + useList.get(i).accountType);
             System.out.println("Balance: " + useList.get(i).balance);
             System.out.println(" ");
         }
@@ -90,37 +97,36 @@ public class oopProject {
         System.out.println("Which account would you like to select? (TYPE exit TO EXIT)");
         String menuResponse = carouselAsk.nextLine().trim().toLowerCase();
 
+        if (menuResponse.equals("exit")) {
+            ask();
+        }
+
         for (int i = 0; i < useList.size(); i++) {
             if (menuResponse.equals(useList.get(i).accountName)) {
                 Scanner actionAsk = new Scanner(System.in);
                 System.out.println("What would you like to do? (DEPOSIT/WITHDRAW | TYPE exit TO EXIT)");
                 String actionResponse = actionAsk.nextLine().trim().toLowerCase();
-                if (actionResponse.equals("deposit")){ //check if this is okay later
-                    useList.get(i).deposit();
-                    accountCarousel();
+                switch (actionResponse) {
+                    case "deposit" -> {
+                        useList.get(i).deposit();
+                        accountCarousel();
+                    }
+                    case "withdraw" -> {
+                        useList.get(i).withdraw();
+                        accountCarousel();
+                    }
+                    case "exit" -> accountCarousel();
+                    default -> {
+                        System.out.println("[ERROR. PLEASE TRY AGAIN]");
+                        accountCarousel();
+                    }
                 }
-                else if (actionResponse.equals("withdraw")){
-                    useList.get(i).withdraw();
-                    accountCarousel();
-                }
-                else if (actionResponse.equals("exit")){
-                    accountCarousel();
-                }
-                else {
-                    System.out.println("No matches found. Please try again.");
-                    accountCarousel(); //see if this rerouting is okay
-                }
+                i = 0;
 
             }
-            else if (menuResponse.equals("exit")) {
-                ask();
-            }
-            else {
-                System.out.println("No matches found. Please try again.");
-                accountCarousel();
-            }
-
         }
+        System.out.println("No matches found. Please try again.");
+        accountCarousel();
 
     }
     public static void noCheckingAsk() {
@@ -131,6 +137,7 @@ public class oopProject {
         String askResponse = newAccountAsk.nextLine().trim().toLowerCase();
 
         if (askResponse.equals("yes")){
+            Accounts.nameList = Accounts.checkingList;
             checkingAccount.menu();
         }
         else if (askResponse.equals("no")){
@@ -138,6 +145,7 @@ public class oopProject {
         }
         else{
             System.out.println("[ERROR. PLEASE TRY AGAIN]");
+            noCheckingAsk();
         }
     }
     public static void noSavingsAsk() {
@@ -147,15 +155,17 @@ public class oopProject {
         System.out.println("Make a new account? (yes/no)");
         String askResponse = newAccountAsk.nextLine().trim().toLowerCase();
 
-//        if (askResponse.equals("yes")){
-//            checkingAccount.menu();
-//        }
-//        else if (askResponse.equals("no")){
-//            ask();
-//        }
-//        else{
-//            System.out.println("[ERROR. PLEASE TRY AGAIN]");
-//        }
+        if (askResponse.equals("yes")){
+            Accounts.nameList = Accounts.savingsList;
+            savingsAccount.menu();
+        }
+        else if (askResponse.equals("no")){
+            ask();
+        }
+        else{
+            System.out.println("[ERROR. PLEASE TRY AGAIN]");
+            noSavingsAsk();
+        }
     }
 
     public static void accountCreate() {
@@ -167,10 +177,12 @@ public class oopProject {
             case "checking" -> {
                 userAnswer = " ";
                 checkingAccount.menu();
+                Accounts.nameList = Accounts.checkingList;
             }
             case "savings" -> {
                 userAnswer = " ";
-                System.out.println("Savings");
+                savingsAccount.menu();
+                Accounts.nameList = Accounts.savingsList;
             }
             case "exit" -> {
                 userAnswer = " ";

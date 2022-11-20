@@ -6,11 +6,10 @@ public class checkingAccount extends Accounts{
 
     public static boolean depositFound = false;
 
-
-    public checkingAccount(double balance, String accountName){
-        super(balance, accountName);
-        minBalance = 20;
-
+    public static double minBalance = 20;
+    public checkingAccount(double balance, String accountName, String accountType){
+        super(balance, accountName, accountType);
+        this.accountType = "CHECKING";
     }
     public static void menu(){
         Scanner scannerObject = new Scanner(System.in);
@@ -20,7 +19,7 @@ public class checkingAccount extends Accounts{
 
         if (userAnswer.equals("new")) {
 
-            checkingAccount newAccount = new checkingAccount(0,"");
+            checkingAccount newAccount = new checkingAccount(0,"","CHECKING");
             checkingList.add(newAccount);
             newAccount.deposit();
             newAccount.setName();
@@ -28,8 +27,6 @@ public class checkingAccount extends Accounts{
             System.out.println("Success!!");
             System.out.println("Returning to HoME...");
             System.out.println(" ");
-
-
 
             oopProject.ask();
         }
@@ -48,12 +45,12 @@ public class checkingAccount extends Accounts{
         System.out.println("How much money would you like to deposit?" + " (minimum: " + minBalance + ")");
 
         depositResponse = depositAsk.nextLine().trim();
-        Pattern sortNum = Pattern.compile("[0-9]{1,13}(\\\\.[0-9]*)?");
+        Pattern sortNum = Pattern.compile("^[0-9]*$");
         Matcher matcher = sortNum.matcher(depositResponse);
         depositFound = matcher.find();
 
         if (depositFound) {
-            if ((Double.parseDouble(depositResponse) >= minBalance) || (balance > minBalance)) {
+            if ((Double.parseDouble(depositResponse) >= minBalance) || (balance >= minBalance)) {
                 balance += Double.parseDouble(depositResponse);
                 successMessage();
             } else {
@@ -62,6 +59,25 @@ public class checkingAccount extends Accounts{
             }
         } else {
             syntaxError();
+            deposit();
+        }
+    }
+    public void withdraw() {
+        System.out.println("-----WITHDRAW-----");
+        Scanner withdrawAsk = new Scanner(System.in);
+        System.out.println("How much money would you like to withdraw?");
+
+        withdrawResponse = withdrawAsk.nextLine().trim();
+        Pattern sortNum = Pattern.compile("^[0-9]*$");
+        Matcher matcher = sortNum.matcher(withdrawResponse);
+        withdrawFound = matcher.find();
+
+        if (withdrawFound && (minBalance <= (balance - Double.parseDouble(withdrawResponse)))) {
+            balance -= Double.parseDouble(withdrawResponse);
+            successMessage();
+        } else {
+            System.out.println("Your balance is too low to withdraw this amount of money. Please first deposit more money.");
+            oopProject.accountCarousel();
         }
     }
 
