@@ -68,7 +68,7 @@ public class checkingAccount extends Accounts{
         System.out.println("How much money would you like to withdraw?");
 
         withdrawResponse = withdrawAsk.nextLine().trim();
-        Pattern sortNum = Pattern.compile("^[0-9]*$");
+        Pattern sortNum = Pattern.compile("^(0|[1-9]\\d*)?(\\.\\d+)?(?<=\\d)$");
         Matcher matcher = sortNum.matcher(withdrawResponse);
         withdrawFound = matcher.find();
 

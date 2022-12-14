@@ -76,7 +76,7 @@ public class Accounts {
         System.out.println("How much money would you like to deposit?" + " (minimum: " + minBalance + ")");
 
         depositResponse = depositAsk.nextLine().trim();
-        Pattern sortNum = Pattern.compile("^[0-9]*$");
+        Pattern sortNum = Pattern.compile("^(0|[1-9]\\d*)?(\\.\\d+)?(?<=\\d)$");
         Matcher matcher = sortNum.matcher(depositResponse);
         depositFound = matcher.find();
 

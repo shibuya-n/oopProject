@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="60b7d384-4bac-469a-a733-68d6fa2977cd" name="Changes" comment="update 11/18&#10;&#10;setName broken; fix please! - so that you can't have two accs with the same name&#10;finish savingsaccount functions">
+    <list default="true" id="60b7d384-4bac-469a-a733-68d6fa2977cd" name="Changes" comment="oop! done!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Accounts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Accounts.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/checkingAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/checkingAccount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/oopProject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/oopProject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/savingsAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/savingsAccount.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../oopProject\exportToHTML" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -39,6 +41,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Andy Duong/IdeaProjects/oopProject&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
@@ -105,7 +108,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668775175241</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="oop! done!">
+      <created>1668907170343</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1668907170343</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -124,6 +134,7 @@
     <MESSAGE value="update" />
     <MESSAGE value="update &#10;&#10;deposit bugged" />
     <MESSAGE value="update 11/18&#10;&#10;setName broken; fix please! - so that you can't have two accs with the same name&#10;finish savingsaccount functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="update 11/18&#10;&#10;setName broken; fix please! - so that you can't have two accs with the same name&#10;finish savingsaccount functions" />
+    <MESSAGE value="oop! done!" />
+    <option name="LAST_COMMIT_MESSAGE" value="oop! done!" />
   </component>
 </project>

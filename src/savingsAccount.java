@@ -49,7 +49,7 @@ public class savingsAccount extends Accounts {
         System.out.println("How much money would you like to deposit?" + " (minimum: " + minBalance + ")");
 
         depositResponse = depositAsk.nextLine().trim();
-        Pattern sortNum = Pattern.compile("^[0-9]*$");
+        Pattern sortNum = Pattern.compile("^(0|[1-9]\\d*)?(\\.\\d+)?(?<=\\d)$");
         Matcher matcher = sortNum.matcher(depositResponse);
         depositFound = matcher.find();
 
@@ -129,22 +129,6 @@ public class savingsAccount extends Accounts {
         }
     }
     public void withdraw() {
-        System.out.println("-----WITHDRAW-----");
-        Scanner withdrawAsk = new Scanner(System.in);
-        System.out.println("How much money would you like to withdraw?");
-
-        withdrawResponse = withdrawAsk.nextLine().trim();
-        Pattern sortNum = Pattern.compile("^[0-9]*$");
-        Matcher matcher = sortNum.matcher(withdrawResponse);
-        withdrawFound = matcher.find();
-
-        if (withdrawFound && (minBalance <= (balance - Double.parseDouble(withdrawResponse)))) {
-            balance -= Double.parseDouble(withdrawResponse);
-            successMessage();
-        } else {
-            System.out.println("Your balance is too low to withdraw this amount of money. Please first deposit more money.");
-            oopProject.accountCarousel();
-        }
     }
 
 
